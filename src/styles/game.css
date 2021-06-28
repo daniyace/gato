@@ -1,0 +1,94 @@
+.grid {
+  margin-top: 10%;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  max-width: 100%;
+}
+.grid div {
+  background-color: rgb(233, 233, 233);
+  height: 150px;
+}
+.grid div div {
+  width: 150px;
+  cursor: default;
+}
+.grid div div p {
+  margin: 0;
+  font-family: 'Montserrat';
+  font-size: 6rem;
+}
+.eq {
+  color: rgb(168, 18, 18);
+}
+.ou {
+  color: rgb(34, 105, 81);
+}
+.turn {
+  display: block;
+  font-family: 'Montserrat';
+  margin-bottom: 0;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+}
+
+.turn .ou {
+  font-weight: 1000;
+}
+
+.reset {
+  display: block !important;
+  font-size: 2em !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 3em;
+}
+
+@media (max-width: 500px) {
+  .grid {
+    margin-top: 30%;
+  }
+  .grid div {
+    height: 120px;
+  }
+  .grid div div {
+    width: 120px;
+  }
+  .grid div div p {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .grid {
+    margin-top: 40%;
+  }
+  .grid div {
+    height: 100px;
+  }
+  .grid div div {
+    width: 100px;
+  }
+  .grid div div p {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 325px) {
+  .grid {
+    margin-top: 40%;
+  }
+  .grid div {
+    height: 80px;
+  }
+  .grid div div {
+    width: 80px;
+  }
+  .grid div div p {
+    font-size: 3rem;
+  }
+}
