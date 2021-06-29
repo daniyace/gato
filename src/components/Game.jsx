@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/game.css';
 
 function Game(props) {
-  let ban = true;
   let matrix = [];
   for (var i = 0; i < 3; i++) {
     matrix[i] = [];
@@ -17,12 +16,12 @@ function Game(props) {
   const [grid, setGrid] = useState(matrix);
   const [turn, setTurn] = useState(true);
   const [reset, setReset] = useState(false);
+  const [winer, setWiner] = useState(0);
 
   const handleRigthClick = (cell) => {
     if (cell.content === 0 && !reset) {
       setGrid(surround(cell, [...grid]));
       setTurn(!turn);
-      endGame();
     }
   };
   const surround = (cell, copy) => {
@@ -68,11 +67,7 @@ function Game(props) {
         [2, 2],
       ],
     ];
-    copy[cell.x][cell.y] = {
-      x: cell.x,
-      y: cell.y,
-      content: turn ? 'X' : '◯',
-    };
+    copy[cell.x][cell.y].content = turn ? 'X' : '◯';
 
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
@@ -81,24 +76,13 @@ function Game(props) {
         copy[a[0]][a[1]].content === copy[b[0]][b[1]].content &&
         copy[a[0]][a[1]].content === copy[c[0]][c[1]].content
       ) {
-        alert('Gana ' + (turn ? 'X' : '◯'));
+        setWiner(turn ? 'X' : '◯');
         setReset(true);
       }
     }
     return copy;
   };
 
-  const endGame = () => {
-    for (var i = 0; i < 3; i++) {
-      for (var j = 0; j < 3; j++) {
-        if (grid[i][j].content === 0) ban = false;
-      }
-    }
-    if (ban) {
-      alert('Nadie gano, tontos');
-      setReset(true);
-    }
-  };
   const handleReset = () => {
     let matrix = [];
     for (var i = 0; i < 3; i++) {
@@ -113,9 +97,23 @@ function Game(props) {
     }
     setGrid(matrix);
     setTurn(true);
-    ban = true;
     setReset(false);
+    setWiner(0);
   };
+
+  useEffect(() => {
+    if (!reset) {
+      let ban = true;
+      for (var i = 0; i < 3; i++)
+        for (var j = 0; j < 3; j++) if (grid[i][j].content === 0) ban = false;
+      if (ban) {
+        alert('It´s a tie');
+        setReset(true);
+      }
+    } else if (winer !== 0) {
+      alert((turn ? '◯' : 'X') + ' Win');
+    }
+  }, [grid, reset, winer, turn]);
 
   if (props.players === 1) {
     return <div>En proceso</div>;
