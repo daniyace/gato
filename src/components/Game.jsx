@@ -13,6 +13,7 @@ function Game(props) {
       };
     }
   }
+  
   const [grid, setGrid] = useState(matrix);
   const [turn, setTurn] = useState(true);
   const [reset, setReset] = useState(false);
